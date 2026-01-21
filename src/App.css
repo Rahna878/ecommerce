@@ -87,3 +87,85 @@
         font-size: 14px !important;
     }
 }
+
+/* --- PRODUCT DETAIL RESPONSIVENESS --- */
+
+/* 1. Base Container */
+.product-detail-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 2. The Split Layout (Grid) */
+.product-detail-main {
+    display: grid;
+    grid-template-columns: 1fr; /* Default: Stacked for mobile */
+    gap: 30px;
+}
+
+/* 3. Image Handling */
+.main-prod-img {
+    width: 100%;
+    height: auto !important; /* Allow height to scale on mobile */
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.thumbnail-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    overflow-x: auto; /* Scroll thumbnails if they don't fit */
+    padding: 10px 0;
+}
+
+/* 4. Action Buttons (Side by Side) */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* --- MEDIA QUERIES --- */
+
+/* TABLETS & LAPTOPS (Screens wider than 768px) */
+@media (min-width: 768px) {
+    .product-detail-main {
+        grid-template-columns: 1fr 1.2fr; /* Two columns */
+        align-items: start;
+    }
+
+    .product-image-section {
+        position: sticky;
+        top: 20px;
+    }
+
+    .product-info-section h1 {
+        font-size: 2rem;
+    }
+}
+
+/* MOBILE PHONES (Screens smaller than 480px) */
+@media (max-width: 480px) {
+    .product-detail-container {
+        padding: 10px;
+    }
+
+    .product-info-section h1 {
+        font-size: 1.4rem;
+    }
+
+    .action-buttons {
+        flex-direction: column; /* Buttons stack on very small phones */
+    }
+
+    .main-prod-img {
+        max-height: 300px;
+    }
+
+    .prod-recommendation-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 items per row in recommendations */
+        gap: 10px;
+    }
+}

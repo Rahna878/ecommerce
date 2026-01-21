@@ -115,15 +115,15 @@ const ProductDetail = () => {
         ? (reviews.reduce((acc, rev) => acc + rev.rating, 0) / reviews.length).toFixed(1)
         : null;
 
-    return (
-        <div style={{ padding: "40px", maxWidth: "1100px", margin: "0 auto", fontFamily: "system-ui" }}>
-            <div style={{ display: "flex", gap: "50px", alignItems: "flex-start" }}>
+return (
+        <div className="product-detail-container">
+            <div className="product-detail-main">
                 {/* LEFT: Image Section */}
-                <div style={{ flex: "0.8", position: "sticky", top: "20px" }}>
+                <div className="product-image-section">
                     <div style={mainImageContainer}>
-                        <img src={mainImage} alt={product.title} style={mainImageStyle} />
+                        <img src={mainImage} alt={product.title} style={mainImageStyle} className="main-prod-img" />
                     </div>
-                    <div style={{ display: "flex", gap: "10px", marginTop: "15px", justifyContent: "center" }}>
+                    <div className="thumbnail-row">
                         {product.images?.map(img => (
                             <img
                                 key={img.id}
@@ -131,50 +131,45 @@ const ProductDetail = () => {
                                 style={thumbnailStyle(mainImage === getFullImageUrl(img.image))}
                                 onClick={() => setMainImage(getFullImageUrl(img.image))}
                                 alt="thumbnail"
+                                className="thumb-img"
                             />
                         ))}
                     </div>
                 </div>
 
                 {/* RIGHT: Product Details */}
-                <div style={{ flex: "1.2" }}>
+                <div className="product-info-section">
                     <h1>{product.title}</h1>
-
-                    <p style={{ color: "#565959", lineHeight: "1.6" }}>{product.description}</p>
+                    <p className="prod-description">{product.description}</p>
+                    
                     <div style={{ margin: "20px 0" }}>
-                        {/* Current Price */}
-                        <div style={{ display: "flex", alignItems: "flex-start", color: "#0F1111" }}>
-                            <span style={{ fontSize: "14px", marginTop: "4px", marginRight: "2px" }}>₹</span>
-                            <span style={{ fontSize: "28px", fontWeight: "500" }}>{product.price}</span>
+                        <div className="price-box">
+                            <span className="currency-symbol">₹</span>
+                            <span className="main-price">{product.price}</span>
                         </div>
 
-                        {/* Old Price (M.R.P) and Discount % */}
                         {product.old_price > product.price && (
-                            <div style={{ fontSize: "14px", color: "#565959", marginTop: "4px" }}>
-                                M.R.P.: <span style={{ textDecoration: "line-through" }}>₹{product.old_price}</span>
-                                <span style={{ color: "#CC0C39", marginLeft: "8px" }}>
-                                    ({product.discount_percentage}% off)
-                                </span>
+                            <div className="mrp-box">
+                                M.R.P.: <span className="old-price">₹{product.old_price}</span>
+                                <span className="discount-tag">({product.discount_percentage}% off)</span>
                             </div>
                         )}
                     </div>
 
-                    <div style={{ margin: "20px 0", padding: "15px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
+                    <div className="availability-box">
                         <p><strong>Availability:</strong> <span style={{ color: product.stock > 0 ? "green" : "red" }}>{product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}</span></p>
                         <p><strong>Rating:</strong> {avgRating ? `★ ${avgRating} (${reviews.length} reviews)` : "No rating yet"}</p>
-                        <p style={{ marginTop: "10px", borderTop: "1px solid #ddd", paddingTop: "10px" }}>
-                            <strong>Get it by:</strong> <span style={{ color: "#b12704" }}>{getDeliveryEstimate()}</span>
+                        <p className="delivery-est">
+                            <strong>Get it by:</strong> <span>{getDeliveryEstimate()}</span>
                         </p>
                     </div>
 
-
-
-                    <div style={{ display: "flex", gap: "10px" }}>
-                        <button onClick={handleAddToCart} style={cartButtonStyle} disabled={product.stock <= 0}>
+                    <div className="action-buttons">
+                        <button onClick={handleAddToCart} style={cartButtonStyle} className="add-to-cart-btn" disabled={product.stock <= 0}>
                             {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
                         </button>
-                        <button onClick={toggleWishlist} style={wishlistButtonStyle(isWishlisted)}>
-                            {isWishlisted ? "❤️ In Your Wishlist" : "🤍 Add to Wishlist"}
+                        <button onClick={toggleWishlist} style={wishlistButtonStyle(isWishlisted)} className="wishlist-btn">
+                            {isWishlisted ? "❤️ Wishlisted" : "🤍 Wishlist"}
                         </button>
                     </div>
                 </div>
@@ -182,9 +177,9 @@ const ProductDetail = () => {
 
             {/* Recommendations Section */}
             {recommendations.length > 0 && (
-                <div style={{ marginTop: '50px' }}>
+                <div className="recommendations-section">
                     <h2>More from {product.brand?.name || "this brand"}</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
+                    <div className="prod-recommendation-grid">
                         {recommendations.map(item => <ProductCard key={item.id} product={item} />)}
                     </div>
                 </div>
