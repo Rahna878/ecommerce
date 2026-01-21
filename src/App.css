@@ -36,40 +36,54 @@
     /* .product-grid { grid-template-columns: 1fr !important; } */
 }
 
-@media (max-width: 768px) {
-    /* 1. Make the navbar wrap its items */
+/* --- LAPTOP/DESKTOP VIEW (Large Screens) --- */
+@media (min-width: 769px) {
     .navbar {
-        flex-wrap: wrap !important;
-        padding: 10px !important;
-        gap: 10px !important;
+        flex-wrap: nowrap !important; /* Keep everything in one line */
     }
 
-    /* 2. Force the search form to take up 100% width on the second row */
     .nav-search-form {
-        order: 3 !important; /* Moves it to the bottom */
-        margin: 0 !important;
-        max-width: 100% !important;
-        width: 100% !important;
+        display: flex !important;
+        flex: 1 !important; /* Search takes up middle space */
+        margin: 0 40px !important;
     }
 
-    /* 3. Adjust Logo and Left side */
-    .nav-logo {
-        font-size: 18px !important;
+    .nav-link-home, .user-greeting {
+        display: inline-block !important; /* Show text on laptop */
+    }
+}
+
+/* --- MOBILE/TABLET VIEW (Small Screens) --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap !important; /* Allow items to move to second row */
+        padding: 10px !important;
     }
 
-    /* 4. Hide "Home" text and "Hello, User" to save space */
-    .nav-link-desktop, .user-name-text {
-        display: none !important;
+    .nav-left {
+        order: 1;
+        width: 50% !important;
     }
 
-    /* 5. Make search input slightly shorter for mobile */
-    .search-wrapper input {
-        padding: 8px 40px 8px 10px !important;
-        font-size: 14px !important;
-    }
-
-    /* 6. Keep Icons visible on the right */
     .nav-right {
-        gap: 10px !important;
+        order: 2;
+        width: 50% !important;
+        justify-content: flex-end !important;
+    }
+
+    .nav-search-form {
+        order: 3 !important; /* Force search to bottom row */
+        width: 100% !important;
+        margin: 10px 0 0 0 !important;
+        flex: none !important; /* Stop it from trying to grow horizontally */
+    }
+
+    .nav-link-home, .user-greeting {
+        display: none !important; /* Hide home text and user greeting to save space */
+    }
+
+    .search-input {
+        padding: 8px 10px !important;
+        font-size: 14px !important;
     }
 }

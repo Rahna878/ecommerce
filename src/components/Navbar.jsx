@@ -77,87 +77,66 @@ const Navbar = () => {
     const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
     const cartCount = safeCartItems.reduce((acc, item) => acc + (parseInt(item.quantity) || 1), 0);
 
-    return (
-        <>
-            <nav style={navBarStyle}>
-                <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                    <i className="fas fa-bars" onClick={() => setIsSidebarOpen(true)} style={iconStyle}></i>
-                    <div style={{ cursor: "pointer", fontWeight: "bold", fontSize: "20px" }} onClick={() => navigate("/")}>
-                        MyShop
-                    </div>
-                </div>
+// ... (keep all your imports and logic the same)
 
-                <form onSubmit={handleSearchSubmit} style={searchFormStyle}>
-                    <div style={searchWrapperStyle}>
-                        <input 
-                            type="text" 
-                            placeholder="Search for products..." 
-                            value={searchQuery}
-                            onFocus={() => setShowHistory(true)}
-                            onBlur={() => setTimeout(() => setShowHistory(false), 200)}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            style={searchInputStyle}
-                        />
-                        
-                        {/* SEARCH HISTORY DROPDOWN */}
-                        {showHistory && history.length > 0 && (
-                            <div style={historyDropdownStyle}>
-                                {history.map((item, index) => (
-                                    <div 
-                                        key={index} 
-                                        style={historyItemStyle} 
-                                        // Use onMouseDown to trigger before onBlur closes the menu
-                                        onMouseDown={() => handleSearchSubmit(null, item)}
-                                    >
-                                        <i className="fas fa-history" style={{ color: "#888", marginRight: "10px" }}></i>
-                                        {item}
-                                    </div>
-                                ))}
-                                <div 
-                                    onMouseDown={clearHistory} 
-                                    style={clearHistoryButtonStyle}
-                                >
-                                    Clear History
-                                </div>
-                            </div>
-                        )}
+    return (
+        <>
+            <nav style={navBarStyle} className="navbar">
+                <div style={{ display: "flex", alignItems: "center", gap: "15px" }} className="nav-left">
+                    <i className="fas fa-bars" onClick={() => setIsSidebarOpen(true)} style={iconStyle}></i>
+                    <div className="nav-logo" style={{ cursor: "pointer", fontWeight: "bold", fontSize: "20px" }} onClick={() => navigate("/")}>
+                        MyShop
+                    </div>
+                </div>
 
-                        <div onClick={handleVoiceSearch} style={micContainerStyle}>
-                            <i className={`fas fa-microphone ${isListening ? "fa-beat" : ""}`} 
-                               style={{ color: isListening ? "#ff4757" : "#555" }}>
-                            </i>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" style={searchBtnStyle}>
-                        <i className="fas fa-search"></i>
-                    </button>
-                </form>
+                <form onSubmit={handleSearchSubmit} style={searchFormStyle} className="nav-search-form">
+                    <div style={searchWrapperStyle} className="search-wrapper">
+                        <input 
+                            type="text" 
+                            placeholder="Search for products..." 
+                            value={searchQuery}
+                            onFocus={() => setShowHistory(true)}
+                            onBlur={() => setTimeout(() => setShowHistory(false), 200)}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            style={searchInputStyle}
+                            className="search-input"
+                        />
+                        {/* ... (Search History Dropdown Logic) ... */}
+                        <div onClick={handleVoiceSearch} style={micContainerStyle}>
+                            <i className={`fas fa-microphone ${isListening ? "fa-beat" : ""}`} 
+                               style={{ color: isListening ? "#ff4757" : "#555" }}>
+                            </i>
+                        </div>
+                    </div>
+                    <button type="submit" style={searchBtnStyle} className="search-btn">
+                        <i className="fas fa-search"></i>
+                    </button>
+                </form>
 
-                <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
-                    <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>Home</Link>
-                    {user ? (
-                        <>
-                            <span style={userSpanStyle}>Hello, {user.username}</span>
-                            <Link to="/cart" style={cartIconContainerStyle}>
-                                <i className="fas fa-shopping-cart" style={{ fontSize: "22px", color: "#fff" }}></i>
-                                {cartCount > 0 && <span style={cartBadgeStyle}>{cartCount}</span>}
-                            </Link>
-                            <button onClick={logout} style={btnStyle("#f0c14b")}>Logout</button>
-                        </>
-                    ) : (
-                        <>
-                            <Link to="/login" style={linkStyle}>Login</Link>
-                            <Link to="/register" style={linkStyle}>Register</Link>
-                        </>
-                    )}
-                </div>
-            </nav>
+                <div className="nav-right" style={{ display: "flex", gap: "15px", alignItems: "center" }}>
+                    <Link to="/" className="nav-link-home" style={{ color: "#fff", textDecoration: "none" }}>Home</Link>
+                    {user ? (
+                        <>
+                            <span className="user-greeting" style={userSpanStyle}>Hello, {user.username}</span>
+                            <Link to="/cart" style={cartIconContainerStyle}>
+                                <i className="fas fa-shopping-cart" style={{ fontSize: "22px", color: "#fff" }}></i>
+                                {cartCount > 0 && <span style={cartBadgeStyle}>{cartCount}</span>}
+                            </Link>
+                            <button onClick={logout} className="logout-btn" style={btnStyle("#f0c14b")}>Logout</button>
+                        </>
+                    ) : (
+                        <div className="auth-links">
+                            <Link to="/login" style={linkStyle}>Login</Link>
+                        </div>
+                    )}
+                </div>
+            </nav>
 
-            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} user={user} />
-        </>
-    );
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} user={user} />
+        </>
+    );
 };
+// ... rest of file
 
 // --- STYLES ---
 
