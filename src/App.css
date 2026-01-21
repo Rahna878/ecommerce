@@ -170,108 +170,109 @@
     }
 }
 /* --- PRODUCT DETAIL PAGE --- */
-.product-detail-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-
-.product-detail-main {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Laptop: Side by side */
-    gap: 40px;
-    align-items: start;
-}
-
-/* Image Styling */
-.main-image-box {
-    border: 1px solid #ddd;
-    border-radius: 8px;
+/* 1. LAYOUT & RESPONSIVENESS */
+.product-page-wrapper {
     padding: 20px;
-    background: #fff;
-    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-family: system-ui, -apple-system, sans-serif;
 }
 
-.main-prod-img {
-    max-width: 100%;
+.product-main-container {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.image-column { flex: 0.8; position: sticky; top: 20px; }
+.info-column { flex: 1.2; }
+
+.detail-main-img {
+    width: 100%;
     height: 400px;
     object-fit: contain;
 }
 
-.thumbnail-row {
+.detail-thumb-row {
     display: flex;
     gap: 10px;
     margin-top: 15px;
     justify-content: center;
 }
 
-.thumb-img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
+/* 2. TEXT & PRICE STYLING (The colors you asked for) */
+.detail-description {
+    color: #444; /* Readable Dark Grey */
+    line-height: 1.6;
+    margin: 15px 0;
 }
 
-.thumb-img.active-thumb {
-    border: 2px solid #f0c14b;
-}
-
-/* Right Side Details */
-.price-row {
+.new-price {
+    color: #B12704; /* Amazon-style Price Red */
     display: flex;
     align-items: flex-start;
-    color: #B12704;
-    margin-top: 10px;
 }
 
-.amount { font-size: 28px; font-weight: bold; }
-.old-amount { text-decoration: line-through; color: #565959; }
-.discount { color: #CC0C39; margin-left: 10px; }
+.price-val { font-size: 28px; font-weight: 600; }
 
-.availability-card {
-    background: #f7f7f7;
-    padding: 15px;
-    border-radius: 8px;
+.old-price-val {
+    text-decoration: line-through;
+    color: #565959; /* Muted Grey */
+}
+
+.discount-tag {
+    color: #CC0C39; /* Bright Red for discount */
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+.delivery-highlight { color: #b12704; font-weight: bold; }
+
+.detail-status-card {
     margin: 20px 0;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.add-to-cart-btn {
-    background: #f0c14b;
-    border: 1px solid #a88734;
-    padding: 12px 25px;
-    flex: 1;
+    padding: 15px;
+    background-color: #f9f9f9;
     border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
-.wishlist-btn {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 12px 25px;
-    flex: 1;
-    border-radius: 8px;
-    cursor: pointer;
+/* 3. BUTTONS */
+.detail-btn-group { display: flex; gap: 10px; }
+
+.add-cart-btn {
+    flex: 1; padding: 15px; background-color: #f0c14b;
+    border: 1px solid #a88734; border-radius: 8px;
+    font-weight: bold; cursor: pointer;
 }
 
-/* --- MOBILE RESPONSIVENESS --- */
+.wish-btn {
+    flex: 1; padding: 12px; background-color: #fff;
+    border: 1px solid #adb1b8; border-radius: 8px; cursor: pointer;
+}
+
+/* 4. RECOMMENDATIONS GRID */
+.recommendation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* --- MOBILE BREAKPOINT --- */
 @media (max-width: 768px) {
-    .product-detail-main {
-        grid-template-columns: 1fr; /* Stack on mobile */
+    .product-main-container {
+        flex-direction: column; /* Stack image and info */
+        gap: 20px;
     }
-    
-    .main-prod-img {
-        height: 300px;
+
+    .image-column {
+        position: static;
+        width: 100%;
     }
+
+    .detail-main-img { height: 300px; }
+
+    .detail-btn-group { flex-direction: column; }
     
-    .action-buttons {
-        flex-direction: column;
+    .recommendation-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row on mobile */
     }
 }
