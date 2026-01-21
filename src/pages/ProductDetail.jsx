@@ -115,23 +115,23 @@ const ProductDetail = () => {
         ? (reviews.reduce((acc, rev) => acc + rev.rating, 0) / reviews.length).toFixed(1)
         : null;
 
-return (
+    return (
+        // Inside your return statement:
         <div className="product-detail-container">
             <div className="product-detail-main">
                 {/* LEFT: Image Section */}
                 <div className="product-image-section">
-                    <div style={mainImageContainer}>
-                        <img src={mainImage} alt={product.title} style={mainImageStyle} className="main-prod-img" />
+                    <div className="main-image-box"> {/* Use class instead of inline style */}
+                        <img src={mainImage} alt={product.title} className="main-prod-img" />
                     </div>
                     <div className="thumbnail-row">
                         {product.images?.map(img => (
                             <img
                                 key={img.id}
                                 src={getFullImageUrl(img.image)}
-                                style={thumbnailStyle(mainImage === getFullImageUrl(img.image))}
+                                className={`thumb-img ${mainImage === getFullImageUrl(img.image) ? 'active-thumb' : ''}`}
                                 onClick={() => setMainImage(getFullImageUrl(img.image))}
                                 alt="thumbnail"
-                                className="thumb-img"
                             />
                         ))}
                     </div>
@@ -141,40 +141,38 @@ return (
                 <div className="product-info-section">
                     <h1>{product.title}</h1>
                     <p className="prod-description">{product.description}</p>
-                    
-                    <div style={{ margin: "20px 0" }}>
-                        <div className="price-box">
-                            <span className="currency-symbol">₹</span>
-                            <span className="main-price">{product.price}</span>
-                        </div>
 
+                    <div className="price-container">
+                        <div className="price-row">
+                            <span className="currency">₹</span>
+                            <span className="amount">{product.price}</span>
+                        </div>
                         {product.old_price > product.price && (
-                            <div className="mrp-box">
-                                M.R.P.: <span className="old-price">₹{product.old_price}</span>
-                                <span className="discount-tag">({product.discount_percentage}% off)</span>
+                            <div className="mrp-row">
+                                M.R.P.: <span className="old-amount">₹{product.old_price}</span>
+                                <span className="discount">({product.discount_percentage}% off)</span>
                             </div>
                         )}
                     </div>
 
-                    <div className="availability-box">
-                        <p><strong>Availability:</strong> <span style={{ color: product.stock > 0 ? "green" : "red" }}>{product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}</span></p>
-                        <p><strong>Rating:</strong> {avgRating ? `★ ${avgRating} (${reviews.length} reviews)` : "No rating yet"}</p>
-                        <p className="delivery-est">
-                            <strong>Get it by:</strong> <span>{getDeliveryEstimate()}</span>
-                        </p>
+                    <div className="availability-card">
+                        <p><strong>Availability:</strong> <span className={product.stock > 0 ? "in-stock" : "out-of-stock"}>
+                            {product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}
+                        </span></p>
+                        <p><strong>Rating:</strong> {avgRating ? `★ ${avgRating}` : "No rating yet"}</p>
+                        <p className="delivery-line"><strong>Get it by:</strong> {getDeliveryEstimate()}</p>
                     </div>
 
                     <div className="action-buttons">
-                        <button onClick={handleAddToCart} style={cartButtonStyle} className="add-to-cart-btn" disabled={product.stock <= 0}>
-                            {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
+                        <button onClick={handleAddToCart} className="add-to-cart-btn" disabled={product.stock <= 0}>
+                            Add to Cart
                         </button>
-                        <button onClick={toggleWishlist} style={wishlistButtonStyle(isWishlisted)} className="wishlist-btn">
+                        <button onClick={toggleWishlist} className={`wishlist-btn ${isWishlisted ? 'active' : ''}`}>
                             {isWishlisted ? "❤️ Wishlisted" : "🤍 Wishlist"}
                         </button>
                     </div>
                 </div>
             </div>
-
             {/* Recommendations Section */}
             {recommendations.length > 0 && (
                 <div className="recommendations-section">

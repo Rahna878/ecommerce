@@ -169,3 +169,109 @@
         gap: 10px;
     }
 }
+/* --- PRODUCT DETAIL PAGE --- */
+.product-detail-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.product-detail-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Laptop: Side by side */
+    gap: 40px;
+    align-items: start;
+}
+
+/* Image Styling */
+.main-image-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    text-align: center;
+}
+
+.main-prod-img {
+    max-width: 100%;
+    height: 400px;
+    object-fit: contain;
+}
+
+.thumbnail-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.thumb-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.thumb-img.active-thumb {
+    border: 2px solid #f0c14b;
+}
+
+/* Right Side Details */
+.price-row {
+    display: flex;
+    align-items: flex-start;
+    color: #B12704;
+    margin-top: 10px;
+}
+
+.amount { font-size: 28px; font-weight: bold; }
+.old-amount { text-decoration: line-through; color: #565959; }
+.discount { color: #CC0C39; margin-left: 10px; }
+
+.availability-card {
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.add-to-cart-btn {
+    background: #f0c14b;
+    border: 1px solid #a88734;
+    padding: 12px 25px;
+    flex: 1;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.wishlist-btn {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 12px 25px;
+    flex: 1;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .product-detail-main {
+        grid-template-columns: 1fr; /* Stack on mobile */
+    }
+    
+    .main-prod-img {
+        height: 300px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}
