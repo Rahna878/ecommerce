@@ -10,8 +10,8 @@ const MyOrdersPage = () => {
     const getFullImageUrl = (url) => {
         if (!url) return "https://placehold.jp/50x50.png"; // Fallback
         if (url.startsWith("http")) return url;
-        const path = url.startsWith("/") ? url : `/${url}`;
-        return `https://rahna.pythonanywhere.com${path}`;
+        const cleanPath = url.startsWith("/") ? url : `/${url}`;
+        return `https://rahna.pythonanywhere.com${cleanPath}`;
     };
 
     useEffect(() => {
@@ -110,10 +110,12 @@ const MyOrdersPage = () => {
                                 <div key={item.id} style={productRow}>
                                     <div style={productRow}>
                                         <img
-                                            src={getFullImageUrl(item.product_image)}
+                                            // We try product_image first, then thumbnail, then a placeholder
+                                            src={getFullImageUrl(item.product_image || item.thumbnail || item.product?.image)}
                                             alt={item.product_name}
                                             style={itemImage}
                                             onError={(e) => {
+                                                console.log("Image failed to load:", e.target.src);
                                                 e.target.src = "https://placehold.jp/50x50.png";
                                             }}
                                         />
