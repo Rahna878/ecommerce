@@ -46,7 +46,7 @@ const CategoryPage = () => {
                             <Link to={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div style={imageWrapper}>
                                     <img
-                                        src={product.thumbnail ? `http://127.0.0.1:8000${product.thumbnail}` : "/no-image.png"}
+                                        src={product.thumbnail ? `https://rahna.pythonanywhere.com${item.product?.thumbnail}` : "/no-image.png"}
                                         alt={product.title}
                                         style={imgStyle}
                                     />

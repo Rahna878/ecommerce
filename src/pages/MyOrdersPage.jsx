@@ -109,7 +109,7 @@ const MyOrdersPage = () => {
                                 <div key={item.id} style={productRow}>
                                     <div style={productRow}>
                                         <img
-                                            src={item.product_image || "https://placehold.jp/50x50.png"}
+                                            src={item.product_image ? `https://rahna.pythonanywhere.com${item.product_image}` : "https://placehold.jp/50x50.png"}
                                             alt={item.product_name}
                                             style={itemImage}
                                             onError={(e) => {

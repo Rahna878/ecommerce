@@ -55,7 +55,7 @@ const CartPage = () => {
                         {safeItems.map(item => (
                             <div key={item.id} style={itemStyle}>
                                 <img
-                                    src={`http://127.0.0.1:8000${item.product?.thumbnail}`}
+                                    src={`https://rahna.pythonanywhere.com${item.product?.thumbnail}`}
                                     alt={item.product?.title}
                                     style={{ width: "120px", height: "120px", objectFit: "contain" }}
                                 />

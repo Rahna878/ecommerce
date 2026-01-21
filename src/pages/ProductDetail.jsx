@@ -61,7 +61,7 @@ const ProductDetail = () => {
     const getFullImageUrl = (url) => {
         if (!url) return "/no-image.png";
         if (url.startsWith("http")) return url;
-        return `http://127.0.0.1:8000${url}`;
+        return `https://rahna.pythonanywhere.com${url}`;
     };
 
     const getDeliveryEstimate = () => {

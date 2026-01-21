@@ -9,7 +9,7 @@ const WishlistPage = () => {
     const [addingId, setAddingId] = useState(null); // Track which item is being added
     
     const { addToCart } = useContext(CartContext);
-    const backendUrl = "http://127.0.0.1:8000";
+    const backendUrl = "https://rahna.pythonanywhere.com";
 
     useEffect(() => {
         fetchWishlist();

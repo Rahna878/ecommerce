@@ -43,7 +43,7 @@ const Home = () => {
     const ProductCard = ({ product }) => (
         <div style={cardStyle}>
             <img
-                src={product.thumbnail ? `http://127.0.0.1:8000${product.thumbnail}` : "/no-image.png"}
+                src={product.thumbnail ? `https://rahna.pythonanywhere.com${product.thumbnail}` : "/no-image.png"}
                 alt={product.title}
                 style={imgStyle}
                 onClick={() => navigate(`/product/${product.id}`)}

@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
     const getFullImageUrl = (path) => {
         if (!path) return "";
         if (path.startsWith("http")) return path;
-        return `http://127.0.0.1:8000${path}`;
+        return `https://rahna.pythonanywhere.com${path}`;
     };
 
     const imageUrl = getFullImageUrl(product.thumbnail);
