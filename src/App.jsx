@@ -8,7 +8,7 @@ import WishlistPage from "./pages/Wishlist";
 import { useEffect } from "react";
 import CartPage from "./pages/Cart";
 import CheckoutPage from "./pages/CheckOutpage";
-import MyOrdersPage from "./pages/MyordersPage";
+import MyOrdersPage from "./pages/MyOrdersPage";
 import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
 import Footer from "./components/Footer";
