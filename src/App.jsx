@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPasswordConfirm from './pages/ResetPasswordConfirm';
 import ProfilePage from './pages/ProfilePage';
+import "./App.css";
 
 
 
