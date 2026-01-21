@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import Sidebar from "./NavDrawer"; 
+import Sidebar from "./NavDrawer";
 import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
@@ -61,7 +61,7 @@ const Navbar = () => {
         const recognition = new SpeechRecognition();
         recognition.lang = 'en-US';
         recognition.onstart = () => setIsListening(true);
-        
+
         recognition.onresult = (event) => {
             const transcript = event.results[0][0].transcript;
             const cleanQuery = transcript.trim().replace(/[.,?]$/, "");
@@ -79,33 +79,33 @@ const Navbar = () => {
 
     return (
         <>
-            <nav style={navBarStyle}>
-                <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+            <nav style={navBarStyle} className="navbar">
+                <div className="nav-left">
                     <i className="fas fa-bars" onClick={() => setIsSidebarOpen(true)} style={iconStyle}></i>
-                    <div style={{ cursor: "pointer", fontWeight: "bold", fontSize: "20px" }} onClick={() => navigate("/")}>
+                    <div className="nav-logo" onClick={() => navigate("/")}>
                         MyShop
                     </div>
                 </div>
 
                 <form onSubmit={handleSearchSubmit} style={searchFormStyle}>
-                    <div style={searchWrapperStyle}>
-                        <input 
-                            type="text" 
-                            placeholder="Search for products..." 
+                    <div style={searchWrapperStyle} className="search-wrapper">
+                        <input
+                            type="text"
+                            placeholder="Search for products..."
                             value={searchQuery}
                             onFocus={() => setShowHistory(true)}
                             onBlur={() => setTimeout(() => setShowHistory(false), 200)}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             style={searchInputStyle}
                         />
-                        
+
                         {/* SEARCH HISTORY DROPDOWN */}
                         {showHistory && history.length > 0 && (
                             <div style={historyDropdownStyle}>
                                 {history.map((item, index) => (
-                                    <div 
-                                        key={index} 
-                                        style={historyItemStyle} 
+                                    <div
+                                        key={index}
+                                        style={historyItemStyle}
                                         // Use onMouseDown to trigger before onBlur closes the menu
                                         onMouseDown={() => handleSearchSubmit(null, item)}
                                     >
@@ -113,8 +113,8 @@ const Navbar = () => {
                                         {item}
                                     </div>
                                 ))}
-                                <div 
-                                    onMouseDown={clearHistory} 
+                                <div
+                                    onMouseDown={clearHistory}
                                     style={clearHistoryButtonStyle}
                                 >
                                     Clear History
@@ -123,33 +123,32 @@ const Navbar = () => {
                         )}
 
                         <div onClick={handleVoiceSearch} style={micContainerStyle}>
-                            <i className={`fas fa-microphone ${isListening ? "fa-beat" : ""}`} 
-                               style={{ color: isListening ? "#ff4757" : "#555" }}>
+                            <i className={`fas fa-microphone ${isListening ? "fa-beat" : ""}`}
+                                style={{ color: isListening ? "#ff4757" : "#555" }}>
                             </i>
                         </div>
                     </div>
-                    
-                    <button type="submit" style={searchBtnStyle}>
+
+                    <button type="submit" style={searchBtnStyle} className="search-btn">
                         <i className="fas fa-search"></i>
                     </button>
                 </form>
 
-                <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
-                    <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>Home</Link>
+                <div className="nav-right">
+                    <Link to="/" className="nav-link-desktop" style={{ color: "#fff", textDecoration: "none" }}>Home</Link>
                     {user ? (
                         <>
-                            <span style={userSpanStyle}>Hello, {user.username}</span>
+                            <span className="user-name-text" style={userSpanStyle}>Hello, {user.username}</span>
                             <Link to="/cart" style={cartIconContainerStyle}>
                                 <i className="fas fa-shopping-cart" style={{ fontSize: "22px", color: "#fff" }}></i>
                                 {cartCount > 0 && <span style={cartBadgeStyle}>{cartCount}</span>}
                             </Link>
-                            <button onClick={logout} style={btnStyle("#f0c14b")}>Logout</button>
+                            <button onClick={logout} className="logout-btn" style={btnStyle("#f0c14b")}>Logout</button>
                         </>
                     ) : (
-                        <>
+                        <div className="auth-links">
                             <Link to="/login" style={linkStyle}>Login</Link>
-                            <Link to="/register" style={linkStyle}>Register</Link>
-                        </>
+                        </div>
                     )}
                 </div>
             </nav>
@@ -198,58 +197,58 @@ const clearHistoryButtonStyle = {
 };
 
 const navBarStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "10px 20px",
-  backgroundColor: "#232f3e",
-  color: "#fff",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "10px 20px",
+    backgroundColor: "#232f3e",
+    color: "#fff",
 };
 
 const iconStyle = {
-  fontSize: "22px",
-  cursor: "pointer",
-  color: "#fff", 
-  padding: "5px"
+    fontSize: "22px",
+    cursor: "pointer",
+    color: "#fff",
+    padding: "5px"
 };
 
 const userSpanStyle = {
-  whiteSpace: "nowrap",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  maxWidth: "150px"
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    maxWidth: "150px"
 };
 
 const btnStyle = (bg) => ({
-  padding: "5px 15px",
-  borderRadius: "3px",
-  border: "none",
-  cursor: "pointer",
-  backgroundColor: bg,
-  color: "#111",
-  fontWeight: "bold",
+    padding: "5px 15px",
+    borderRadius: "3px",
+    border: "none",
+    cursor: "pointer",
+    backgroundColor: bg,
+    color: "#111",
+    fontWeight: "bold",
 });
 
 const cartIconContainerStyle = {
-  position: "relative",
-  display: "flex",
-  alignItems: "center",
-  textDecoration: "none",
-  marginRight: "10px"
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    textDecoration: "none",
+    marginRight: "10px"
 };
 
 const cartBadgeStyle = {
-  position: "absolute",
-  top: "-8px",
-  right: "-10px",
-  backgroundColor: "#f08804", 
-  color: "white",
-  borderRadius: "50%",
-  padding: "2px 6px",
-  fontSize: "12px",
-  fontWeight: "bold",
-  minWidth: "15px",
-  textAlign: "center"
+    position: "absolute",
+    top: "-8px",
+    right: "-10px",
+    backgroundColor: "#f08804",
+    color: "white",
+    borderRadius: "50%",
+    padding: "2px 6px",
+    fontSize: "12px",
+    fontWeight: "bold",
+    minWidth: "15px",
+    textAlign: "center"
 };
 
 const linkStyle = { color: "#fff", textDecoration: "none", fontWeight: "bold" };

@@ -35,3 +35,41 @@
     /* If you want 1 product per row on very small phones, use 1fr */
     /* .product-grid { grid-template-columns: 1fr !important; } */
 }
+
+@media (max-width: 768px) {
+    /* 1. Make the navbar wrap its items */
+    .navbar {
+        flex-wrap: wrap !important;
+        padding: 10px !important;
+        gap: 10px !important;
+    }
+
+    /* 2. Force the search form to take up 100% width on the second row */
+    .nav-search-form {
+        order: 3 !important; /* Moves it to the bottom */
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* 3. Adjust Logo and Left side */
+    .nav-logo {
+        font-size: 18px !important;
+    }
+
+    /* 4. Hide "Home" text and "Hello, User" to save space */
+    .nav-link-desktop, .user-name-text {
+        display: none !important;
+    }
+
+    /* 5. Make search input slightly shorter for mobile */
+    .search-wrapper input {
+        padding: 8px 40px 8px 10px !important;
+        font-size: 14px !important;
+    }
+
+    /* 6. Keep Icons visible on the right */
+    .nav-right {
+        gap: 10px !important;
+    }
+}
