@@ -7,7 +7,7 @@ import ProductDetail from "./pages/ProductDetail";
 import WishlistPage from "./pages/Wishlist";
 import { useEffect } from "react";
 import CartPage from "./pages/Cart";
-import CheckoutPage from "./pages/CheckOutpage";
+import CheckoutPage from "./pages/Checkoutpage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
