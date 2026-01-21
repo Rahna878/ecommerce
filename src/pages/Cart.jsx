@@ -41,36 +41,36 @@ const CartPage = () => {
 
     if (loading) return <div style={{ padding: "20px" }}>Loading your cart...</div>;
 
-    return (
-        <div style={{ padding: "40px", maxWidth: "1200px", margin: "0 auto" }}>
+   return (
+        <div className="cart-container">
             <h2>Shopping Cart</h2>
             <hr />
 
             {safeItems.length === 0 ? (
                 <p>Your cart is empty. <Link to="/">Go Shopping</Link></p>
             ) : (
-                <div style={{ display: "flex", gap: "30px", marginTop: "20px" }}>
-
-                    <div style={{ flex: 2 }}>
+                <div className="cart-layout">
+                    {/* LEFT: Items List */}
+                    <div className="cart-items-list">
                         {safeItems.map(item => (
-                            <div key={item.id} style={itemStyle}>
+                            <div key={item.id} className="cart-item-row" style={itemStyle}>
                                 <img
                                     src={`https://rahna.pythonanywhere.com${item.product?.thumbnail}`}
                                     alt={item.product?.title}
-                                    style={{ width: "120px", height: "120px", objectFit: "contain" }}
+                                    className="cart-item-img"
                                 />
                                 <div style={{ flex: 1 }}>
-                                    <h4 style={{ marginBottom: "5px" }}>{item.product?.title}</h4>
+                                    <h4 className="cart-item-title">{item.product?.title}</h4>
                                     <p style={{ fontWeight: "bold" }}>Price: ₹{item.product?.price}</p>
 
                                     {/* Quantity Controls */}
-                                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "10px" }}>
+                                    <div className="qty-controls">
                                         <button
                                             style={qtyBtnStyle}
                                             onClick={() => updateQuantity(item.product.id, item.quantity - 1)}>
                                             - </button>
 
-                                        <span style={{ fontWeight: "bold", width: "20px", textAlign: "center" }}>
+                                        <span className="qty-display">
                                             {item.quantity}
                                         </span>
 
@@ -82,6 +82,7 @@ const CartPage = () => {
                                         <button
                                             onClick={() => removeFromCart(item.product.id)}
                                             style={deleteBtnStyle}
+                                            className="delete-btn"
                                         >
                                             Delete
                                         </button>
@@ -91,11 +92,12 @@ const CartPage = () => {
                         ))}
                     </div>
 
-                    <div style={summaryStyle}>
+                    {/* RIGHT: Summary Section */}
+                    <div className="cart-summary-section" style={summaryStyle}>
                         <h3>Order Summary</h3>
+                        {/* ... Order summary content remains same ... */}
                         <div style={{ margin: "20px 0" }}>
                             <p>Subtotal: <b>₹{subtotal.toFixed(2)}</b></p>
-
                             <div style={{ display: "flex", marginTop: "15px" }}>
                                 <input
                                     type="text"
@@ -106,13 +108,11 @@ const CartPage = () => {
                                 />
                                 <button onClick={handleApplyCoupon} style={applyBtnStyle}>Apply</button>
                             </div>
-
                             {couponMessage.text && (
                                 <p style={{ fontSize: "12px", color: couponMessage.color, marginTop: "5px" }}>
                                     {couponMessage.text}
                                 </p>
                             )}
-
                             {discountPercent > 0 && (
                                 <p style={{ color: "green" }}>Discount: -₹{discountAmount.toFixed(2)}</p>
                             )}
@@ -120,7 +120,7 @@ const CartPage = () => {
                             <h3 style={{ color: "#B12704" }}>Total: ₹{finalTotal.toFixed(2)}</h3>
                         </div>
 
-                       <button
+                        <button
                             onClick={() => navigate("/checkout")}
                             disabled={safeItems.length === 0}
                             style={checkoutBtnStyle}
