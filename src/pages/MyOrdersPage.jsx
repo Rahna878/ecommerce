@@ -10,7 +10,8 @@ const MyOrdersPage = () => {
     const getFullImageUrl = (url) => {
         if (!url) return "https://placehold.jp/50x50.png"; // Fallback
         if (url.startsWith("http")) return url;
-        return `https://rahna.pythonanywhere.com${url}`;
+        const path = url.startsWith("/") ? url : `/${url}`;
+        return `https://rahna.pythonanywhere.com${path}`;
     };
 
     useEffect(() => {
@@ -95,7 +96,7 @@ const MyOrdersPage = () => {
                         {/* 1. Order Header */}
                         <div style={orderHeader}>
                             <div>
-                                
+
                                 <div style={dateText}>{new Date(order.created_at).toLocaleDateString()}</div>
                             </div>
                             <span style={statusBadge(order.payment_status)}>
@@ -109,7 +110,7 @@ const MyOrdersPage = () => {
                                 <div key={item.id} style={productRow}>
                                     <div style={productRow}>
                                         <img
-                                            src={item.product_image ? `https://rahna.pythonanywhere.com${item.product_image}` : "https://placehold.jp/50x50.png"}
+                                            src={getFullImageUrl(item.product_image)}
                                             alt={item.product_name}
                                             style={itemImage}
                                             onError={(e) => {
