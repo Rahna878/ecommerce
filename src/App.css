@@ -1,0 +1,37 @@
+/* Tablet and Mobile Styles */
+@media (max-width: 768px) {
+    .home-container {
+        padding: 10px !important; /* Less padding on small screens */
+    }
+
+    /* Change grid from 4 columns to 2 columns */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 10px !important;
+    }
+
+    /* Adjust the card for smaller space */
+    .product-card {
+        padding: 10px !important;
+    }
+
+    .product-card img {
+        height: 150px !important; /* Smaller images */
+    }
+
+    .product-card h4 {
+        font-size: 14px !important;
+        min-height: 35px !important;
+    }
+
+    .add-to-cart-btn {
+        padding: 8px !important;
+        font-size: 12px !important;
+    }
+}
+
+/* Very Small Mobile (Optional) */
+@media (max-width: 480px) {
+    /* If you want 1 product per row on very small phones, use 1fr */
+    /* .product-grid { grid-template-columns: 1fr !important; } */
+}

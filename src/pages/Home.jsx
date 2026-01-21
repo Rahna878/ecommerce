@@ -41,7 +41,7 @@ const Home = () => {
 
     // Reusable Product Card Component to avoid code duplication
     const ProductCard = ({ product }) => (
-        <div style={cardStyle}>
+        <div style={cardStyle} className="product-card">
             <img
                 src={product.thumbnail ? `https://rahna.pythonanywhere.com${product.thumbnail}` : "/no-image.png"}
                 alt={product.title}
@@ -66,9 +66,10 @@ const Home = () => {
                     {product.discount_percentage}% OFF
                 </span>
             )}
-            <button
-                onClick={() => handleAddToCartAction(product)} // Always use the local action handler
+           <button
+                onClick={() => handleAddToCartAction(product)}
                 style={buttonStyle}
+                className="add-to-cart-btn" 
             >
                 Add to Cart
             </button>
@@ -80,14 +81,14 @@ const Home = () => {
             <HomeBanner />
             
             <h2 style={{ margin: "20px 0" }}>Featured Products</h2>
-            <div style={gridStyle}>
+            <div style={gridStyle} className="product-grid">
                 {featuredProducts.map(product => (
                     <ProductCard key={`featured-${product.id}`} product={product} />
                 ))}
             </div>
 
             <h2 style={{ margin: "20px 0" }}>Our Products</h2>
-            <div style={gridStyle}>
+            <div style={gridStyle} className="product-grid">
                 {products.map(product => (
                     <ProductCard key={`all-${product.id}`} product={product} />
                 ))}
