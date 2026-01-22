@@ -161,73 +161,59 @@ const ProductDetail = () => {
 
             {/* Recommendations */}
             {recommendations.length > 0 && (
-                <div className="recommendations-section">
+                <div className="recommendations-section" style={{ marginTop: '50px' }}>
                     <h2 style={{ marginBottom: "20px" }}>More from {product.brand?.name || "this brand"}</h2>
                     <div className="recommendation-grid">
                         {recommendations.map(item => <ProductCard key={item.id} product={item} />)}
                     </div>
                 </div>
             )}
-         {/* Reviews Section */}
+
+            {/* Reviews Section */}
             <div className="reviews-section" style={{ marginTop: "50px", borderTop: "1px solid #eee", paddingTop: "30px" }}>
                 <h2>Customer Reviews</h2>
                 
-                {/* Review Post Form */}
                 <div style={{ backgroundColor: "#f9f9f9", padding: "25px", borderRadius: "12px", marginBottom: "40px" }}>
                     <form onSubmit={handleReviewSubmit}>
-                        <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Your Rating:</label>
-                        <select 
-                            value={rating} 
-                            onChange={(e) => setRating(e.target.value)} 
-                            style={{ marginBottom: "15px", padding: "8px", borderRadius: "4px", border: "1px solid #ddd" }}
-                        >
+                        <select value={rating} onChange={(e) => setRating(e.target.value)} style={{ marginBottom: "10px", padding: "5px" }}>
                             {[5, 4, 3, 2, 1].map(n => <option key={n} value={n}>{n} Stars</option>)}
                         </select>
-                        
                         <textarea 
                             required 
                             value={comment} 
                             onChange={(e) => setComment(e.target.value)} 
-                            placeholder="Write your experience with this product..." 
-                            style={{ width: "100%", height: "100px", margin: "10px 0", padding: "12px", borderRadius: "8px", border: "1px solid #ddd", boxSizing: "border-box" }} 
+                            placeholder="Review here..." 
+                            style={{ width: "100%", height: "80px", margin: "10px 0", padding: "10px" }} 
                         />
-                        <button type="submit" style={cartButtonStyle}>Submit Review</button>
+                        {/* THE BUTTON THAT WAS CAUSING THE ERROR */}
+                        <button type="submit" style={{ ...cartButtonStyle, width: "auto" }}>Submit Review</button>
                     </form>
                 </div>
 
-                {/* Reviews List */}
-                {reviews.length > 0 ? (
-                    reviews.map(rev => (
-                        <div key={rev.id} style={{ borderBottom: "1px solid #eee", padding: "20px 0" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "5px" }}>
-                                <strong style={{ fontSize: "16px" }}>{rev.user}</strong>
-                                <span style={{ color: "#ffa41c", fontWeight: "bold" }}>{"★".repeat(rev.rating)}</span>
-                            </div>
-                            <p style={{ color: "#333", lineHeight: "1.5" }}>{rev.comment}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p style={{ color: "#666" }}>No reviews yet. Be the first to review!</p>
-                )}
+                {reviews.map(rev => (
+                    <div key={rev.id} style={{ borderBottom: "1px solid #eee", padding: "15px 0" }}>
+                        <strong>{rev.user}</strong> - ★{rev.rating}
+                        <p>{rev.comment}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
 };
 
-
-// --- STYLES (Keep existing objects for specific JS logic) ---
+// --- STYLES ---
 const centerStyle = { display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" };
 const mainImageContainer = { border: "1px solid #eee", borderRadius: "8px", padding: "10px", background: "#fff" };
 const thumbnailStyle = (isActive) => ({ width: "60px", height: "80px", cursor: "pointer", border: isActive ? "2px solid #f0c14b" : "1px solid #ddd", borderRadius: "4px", objectFit: "cover" });
 
+// ADDED THIS BACK TO FIX THE ERROR
 const cartButtonStyle = { 
-    padding: "12px 25px", 
+    padding: "15px", 
     backgroundColor: "#f0c14b", 
     border: "1px solid #a88734", 
     borderRadius: "8px", 
     fontWeight: "bold", 
-    cursor: "pointer", 
-    width: "auto" 
+    cursor: "pointer" 
 };
 
 export default ProductDetail;
