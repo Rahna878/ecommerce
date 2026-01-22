@@ -63,22 +63,27 @@ const ProductDetail = () => {
     };
 
     const handleReviewSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await commonApi.post(`reviews/products/${id}/reviews/`, {
-                rating: parseInt(rating),
-                comment
-            });
-            alert("Review submitted successfully!");
-            setComment("");
-            setRating(5);
-            const reviewsRes = await commonApi.get(`products/${id}/reviews/`);
-            setReviews(reviewsRes.data);
-        } catch (err) {
-            alert(err.response?.data?.error || "You must purchase this item to review it.");
-        }
-    };
-
+    e.preventDefault();
+    try {
+        // REMOVED "reviews/" from the start of the string
+        await commonApi.post(`products/${id}/reviews/`, {
+            rating: parseInt(rating),
+            comment: comment
+        });
+        
+        alert("Review submitted successfully!");
+        setComment("");
+        setRating(5);
+        
+        // Update this one too
+        const reviewsRes = await commonApi.get(`products/${id}/reviews/`);
+        setReviews(reviewsRes.data);
+    } catch (err) {
+        // Improved error logging so you can see the real error if it fails
+        const errorMsg = err.response?.data?.error || err.response?.data || "Submission failed";
+        alert(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
+    }
+};
     const toggleWishlist = async () => {
         try {
             await commonApi.post(`wishlist/toggle/`, { product_id: id });
