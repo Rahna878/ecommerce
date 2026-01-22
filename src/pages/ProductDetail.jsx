@@ -168,9 +168,51 @@ const ProductDetail = () => {
                     </div>
                 </div>
             )}
+          {/* Reviews Section */}
+
+            <div style={{ marginTop: "50px", borderTop: "1px solid #eee", paddingTop: "30px" }}>
+
+                <h2>Customer Reviews</h2>
+
+                <div style={{ backgroundColor: "#f9f9f9", padding: "25px", borderRadius: "12px", marginBottom: "40px" }}>
+
+                    <form onSubmit={handleReviewSubmit}>
+
+                        <select value={rating} onChange={(e) => setRating(e.target.value)} style={{ marginBottom: "10px", padding: "5px" }}>
+
+                            {[5, 4, 3, 2, 1].map(n => <option key={n} value={n}>{n} Stars</option>)}
+
+                        </select>
+
+                        <textarea required value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Review here..." style={{ width: "100%", height: "80px", margin: "10px 0", padding: "10px" }} />
+
+                        <button type="submit" style={{ ...cartButtonStyle, width: "auto" }}>Submit Review</button>
+
+                    </form>
+
+                </div>
+
+                {reviews.map(rev => (
+
+                    <div key={rev.id} style={{ borderBottom: "1px solid #eee", padding: "15px 0" }}>
+
+                        <strong>{rev.user}</strong> - ★{rev.rating}
+
+                        <p>{rev.comment}</p>
+
+                    </div>
+
+                ))}
+
+            </div>
+
         </div>
+
     );
+
 };
+
+
 
 // --- STYLES (Keep existing objects for specific JS logic) ---
 const centerStyle = { display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" };
