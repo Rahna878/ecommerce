@@ -62,28 +62,31 @@ const ProductDetail = () => {
         return estimate.toLocaleDateString('en-IN', { weekday: 'long', month: 'long', day: 'numeric' });
     };
 
-    const handleReviewSubmit = async (e) => {
+  const handleReviewSubmit = async (e) => {
     e.preventDefault();
     try {
-        // REMOVED "reviews/" from the start of the string
+        // FIXED: Changed from `reviews/products/${id}/reviews/` 
+        // to `products/${id}/reviews/`
         await commonApi.post(`products/${id}/reviews/`, {
             rating: parseInt(rating),
-            comment: comment
+            comment
         });
         
         alert("Review submitted successfully!");
         setComment("");
         setRating(5);
         
-        // Update this one too
+        // Also fix the GET request here
         const reviewsRes = await commonApi.get(`products/${id}/reviews/`);
         setReviews(reviewsRes.data);
     } catch (err) {
-        // Improved error logging so you can see the real error if it fails
-        const errorMsg = err.response?.data?.error || err.response?.data || "Submission failed";
-        alert(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
+        // Better error logging to see exactly what the backend says
+        const msg = err.response?.data?.error || err.response?.data?.detail || "Submission failed";
+        alert(typeof msg === 'object' ? JSON.stringify(msg) : msg);
     }
 };
+
+
     const toggleWishlist = async () => {
         try {
             await commonApi.post(`wishlist/toggle/`, { product_id: id });
